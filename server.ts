@@ -30,6 +30,11 @@ app.post("/send-email", async (req: Request, res: Response) => {
   }
 });
 
+// New text endpoint
+app.get("/", (req: Request, res: Response) => {
+  res.send("This is the backend for newletter");
+});
+
 app.listen(port, () => {
   console.log(`[server]: Server is running at ${port}`);
 });
