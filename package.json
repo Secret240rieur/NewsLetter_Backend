@@ -1,6 +1,6 @@
 {
   "name": "newsletter_backend",
-  "packageManager": "yarn@3.6.4",
+  "packageManager": "yarn@4.3.1",
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/index.js",
