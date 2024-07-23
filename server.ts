@@ -1,5 +1,5 @@
-// server.ts
 require("dotenv").config();
+import cors from "cors";
 
 import express, { Express, Request, Response } from "express";
 import { sendTestEmail } from "./Controllers/Mailer";
@@ -7,15 +7,21 @@ import { sendTestEmail } from "./Controllers/Mailer";
 const app: Express = express();
 const port = process.env.PORT || 3000;
 
+// Use CORS
+app.use(cors());
+
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json());
 
-// Endpoint to send the test email
-// app.post("/send-email", async (req: Request, res: Response) => {
-app.get("/", async (req: Request, res: Response) => {
-  try {
-    await sendTestEmail();
+app.post("/send-email", async (req: Request, res: Response) => {
+  const { email } = req.body;
+  console.log(email);
+  if (!email) {
+    return res.status(400).send("Email is required");
+  }
 
+  try {
+    await sendTestEmail(email);
     res.status(200).send("Email sent successfully");
   } catch (error) {
     const errorMessage =
@@ -24,10 +30,6 @@ app.get("/", async (req: Request, res: Response) => {
   }
 });
 
-// app.get("/", (req: Request, res: Response) => {
-//   res.send("Express + TypeScript Server");
-// });
-
 app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
+  console.log(`[server]: Server is running at ${port}`);
 });

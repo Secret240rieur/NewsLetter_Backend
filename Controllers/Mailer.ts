@@ -1,11 +1,7 @@
-// controllers/Mailer.ts
 import nodemailer from "nodemailer";
 
 const emailUser = process.env.EMAIL_USER;
 const emailPass = process.env.EMAIL_PASS;
-
-console.log(`Email User: ${emailUser}`);
-console.log(`Email Pass: ${emailPass}`);
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -15,11 +11,11 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export const sendTestEmail = async () => {
+export const sendTestEmail = async (toEmail: string) => {
   const mailOptions = {
     from: emailUser,
-    to: "jawharbeliber@gmail.com",
-    subject: "test",
+    to: toEmail,
+    subject: "Test",
     text: "Content of your email",
   };
 
